@@ -1,7 +1,26 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-export default function Button() {
+
+interface ButtonProps {
+  title: string
+  color: string
+  size: string
+ 
+}
+
+export default function Button({title, color, size}: ButtonProps) {
   return (
-    <div>Button</div>
+    <div style={{ color, fontSize: size }}>
+      {
+        title === 'sign up'?
+      <Link to={title.split(' ').join('')}>
+      {title}
+      </Link>:
+      <Link to={title}>
+      {title}
+      </Link>
+      }
+    </div>
   )
 }
