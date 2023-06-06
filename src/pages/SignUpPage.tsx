@@ -1,7 +1,10 @@
 import React from 'react'
+import Input from '../components/common/Input'
 
 export default function SignUpPage() {
   return (
-    <div>SignUpPage</div>
+    <div>
+      <Input/>
+    </div>
   )
 }
