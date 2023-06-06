@@ -7,10 +7,7 @@ const createInstance = () => {
         headers: {
             'Content-Type' : 'application/json',
         }
-    
     })
-
     return instance
-
 }
 export const instance = createInstance()
