@@ -1,7 +1,11 @@
-
+import { Outlet } from 'react-router-dom';
 
 function App() {
-  return <div>안녕</div>;
+  return(
+          <div>
+              <Outlet/>
+          </div>
+    );
 }
 
 export default App;
