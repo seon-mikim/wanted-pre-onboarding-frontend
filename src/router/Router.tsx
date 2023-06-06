@@ -1,7 +1,29 @@
-import React from 'react'
+import { createBrowserRouter } from 'react-router-dom';
+import SignInPage from '../pages/SignInPage';
+import TodoListPage from '../pages/TodoListPage';
+import SignUpPage from '../pages/SignUpPage';
+import App from '../App';
 
-export default function Router() {
-  return (
-    <div>Router</div>
-  )
-}
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    children: [
+      {
+        path: '/signin',
+        element: <SignInPage />,
+      },
+      {
+        path: '/signup',
+        element: <SignUpPage/>,
+      },
+      {
+        path: '/todo',
+        element: <TodoListPage />,
+      },
+    ],
+  },
+]);
+
+export default router;
