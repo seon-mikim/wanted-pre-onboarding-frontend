@@ -2,16 +2,23 @@ import { createBrowserRouter } from 'react-router-dom';
 import SignInPage from '../pages/SignInPage';
 import TodoListPage from '../pages/TodoListPage';
 import SignUpPage from '../pages/SignUpPage';
-import App from '../App';
+import Layout from '../components/common/layout/Layout';
+import MainPage from '../pages/MainPage';
 
 
-const router = createBrowserRouter([
+
+
+const Router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element:  <Layout/>,
     children: [
       {
-        path: '/login',
+        index: true,
+        element:<MainPage/>
+      },
+      {
+        path: '/signin',
         element: <SignInPage />,
       },
       {
@@ -26,4 +33,4 @@ const router = createBrowserRouter([
   },
 ]);
 
-export default router;
+export default Router;
