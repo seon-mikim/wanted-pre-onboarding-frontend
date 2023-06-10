@@ -7,11 +7,13 @@ interface FormProps {
   pathName: string
   value?:User 
   todoInput?:string
+  onEdit?: boolean
   formHandle?: (e:React.FormEvent<HTMLFormElement>) => void
   onChangeHandle?: (e:React.ChangeEvent<HTMLInputElement>) => void
+  OnCancel?: () => void
 }
 
-export default function Input({formHandle, onChangeHandle,pathName, value, todoInput}: FormProps) {
+export default function Input({formHandle, onChangeHandle,pathName, value, todoInput, onEdit, OnCancel}: FormProps) {
  
   const location = useLocation()
 
@@ -20,22 +22,24 @@ export default function Input({formHandle, onChangeHandle,pathName, value, todoI
   return (
     <S.FormWrap>
       {renderPathName ? (
-        <form onSubmit={formHandle}>
+        <S.Form onSubmit={formHandle}>
           <div>
-            <label htmlFor="email">email</label>
-            <input onChange={onChangeHandle} value={value?.email} data-testid="email-input" type="text" name='email' id="email" />
+            <S.Label htmlFor="email">email</S.Label>
+            <S.Input onChange={onChangeHandle} value={value?.email} data-testid="email-input" type="text" name='email' id="email" />
           </div>
-          <div>
-            <label htmlFor="password">password</label>
-            <input onChange={onChangeHandle} value={value?.password} data-testid="password-input" type="password" name='password' id="password" />
+          <div style={{marginBottom: '20px'}}>
+            <S.Label htmlFor="password">password</S.Label>
+            <S.Input onChange={onChangeHandle} value={value?.password} data-testid="password-input" type="password" name='password' id="password" />
           </div>
-          <Button title={pathName}/>
-        </form>
+          <Button title={pathName} />
+        </S.Form>
       ) : (
-        <form onSubmit={formHandle}>
-          <input onChange={onChangeHandle} value={todoInput} data-testid="new-todo-input" type="text" name='todo' />
+        <S.TodoForm onSubmit={formHandle}>
+          <S.TodoInput onChange={onChangeHandle} value={todoInput} data-testid="new-todo-input" type="text" name='todo' />
           <Button title={pathName}/>
-        </form>
+          {onEdit&&<Button title='취소' OnCancel={OnCancel}/>
+          }
+        </S.TodoForm>
       )}
     </S.FormWrap>
   )
