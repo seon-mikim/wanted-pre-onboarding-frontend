@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router'
 import { deleteTodo, getTodos, postTodo, updateTodo } from '../service/Api'
 import { Todo, UpdataTopoRequest } from '../interface/todo'
 import CardList from '../components/cardList/CardList'
+import { TodoWrap } from './style'
 
 export default function TodoListPage() {
   const [todoInput, setTodoInput] = useState('')
@@ -50,11 +51,11 @@ export default function TodoListPage() {
   }
 
   return (
-    <div>
+    <TodoWrap>
       <div style={{ marginBottom: '20px' }}>
         <Input formHandle={formHandle} onChangeHandle={onChangeHandle} todoInput={todoInput} pathName={pathName} />
       </div>
-      <div>{<CardList todos={todos} onDelete={onDelete} onUpdate={onUpdate} />}</div>
-    </div>
+      <div style={{width:'80%'}}>{<CardList todos={todos} onDelete={onDelete} onUpdate={onUpdate} />}</div>
+    </TodoWrap>
   )
 }
