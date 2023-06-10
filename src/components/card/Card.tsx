@@ -33,43 +33,35 @@ export default function Card({ todo, onDelete, onUpdate }: TodoCardProps) {
     })
   }
   return (
-    <ul
-      style={{
-        display: 'flex',
-        listStyle: 'none',
-        paddingLeft: '0',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        margin: '0 auto',
-      }}
-    >
-      {onEdit ? (
-        <li key={todo.id}>
-          <input onChange={onChangeHandle} type="checkbox" name="isCompleted" checked={isChecked} />
-          <Input
-            formHandle={formHandle}
-            onChangeHandle={onChangeHandle}
-            pathName={pathName}
-            todoInput={isUpdateTodo.todo}
-          />
-          <button onClick={OnCancel} data-testid="cancel-button">
-            취소
+  <ul style={{listStyle: 'none', paddingLeft:'0'}}>
+
+    {onEdit ? (
+      <li key={todo.id} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', margin:'20px auto', alignItems:'center', flex: 1}}>
+        <input onChange={onChangeHandle} type="checkbox" name="isCompleted" checked={isChecked} />
+        <Input
+          formHandle={formHandle}
+          onChangeHandle={onChangeHandle}
+          pathName={pathName}
+          todoInput={isUpdateTodo.todo}
+          onEdit={onEdit}
+          OnCancel={OnCancel}
+        />
+      </li>
+    ) : (
+      <li key={todo.id} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', margin:'20px auto'}}>
+        <input onChange={onChangeHandle} type="checkbox" name="isCompleted" checked={isChecked} />
+        <span style={{ display: 'block', padding: '10px 20px' }}>{todo.todo}</span>
+        <div>
+          <button style={{ border:'none', padding: '12px 22px', marginRight: '10px'}}data-testid="modify-button" onClick={onShowEditInput}>
+            수정
           </button>
-        </li>
-      ) : (
-        <li key={todo.id} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-          <input onChange={onChangeHandle} type="checkbox" name="isCompleted" checked={isChecked} />
-          <span style={{ display: 'block', padding: '10px 20px' }}>{todo.todo}</span>
-          <div>
-            <button data-testid="modify-button" onClick={onShowEditInput}>
-              수정
-            </button>
-            <button onClick={() => onDelete(todo.id)} data-testid="delete-button">
-              삭제
-            </button>
-          </div>
-        </li>
-      )}
-    </ul>
+          <button style={{ border:'none', padding: '12px 22px'}} onClick={() => onDelete(todo.id)} data-testid="delete-button">
+            삭제
+          </button>
+        </div>
+      </li>
+    )}
+  </ul>
+
   )
 }
