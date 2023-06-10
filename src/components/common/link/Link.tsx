@@ -20,5 +20,5 @@ export default function Link({ pathName, onNavigate }: LinkProps) {
       onNavigate('/signup')
     }
   }
-  return <div onClick={handleClick}>{linkComment}</div>
+  return <div style={{ marginTop: '20px'}}onClick={handleClick}>{linkComment}</div>
 }
