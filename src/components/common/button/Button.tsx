@@ -1,24 +1,24 @@
 import React from 'react'
-
+import * as S from './style'
 interface ButtonProps {
   title: string
+  isDisabled?: boolean
   clickHandle?: (title: string) => void
-  OnCancel?: () => void
 }
 
-export default function Button({ title, clickHandle, OnCancel }: ButtonProps) {
-  const substringTitle = title === '제출' || title === '취소' ? title : title.substring(1, 7)
-
+export default function Button({ title, clickHandle, isDisabled }: ButtonProps) {
+  const substringTitle = title === 'submit' || title === 'cancel' ? title : title.substring(1, 7)
+  const checkTitle = title === '/signup' || '/signin'? 'true': undefined
+  console.log(isDisabled)
+  console.log(checkTitle)
   return (
-    <div>
-    <button
-      style={{  padding: `${substringTitle === 'signup'|| 'signin'? '20px 50px': '10px 20px' }`, border: 'none'  }}
+    <S.Button
+      title={checkTitle}
+      disabled={isDisabled}
       data-testid={substringTitle + '-button'}
       onClick={() => clickHandle?.(title)}
     >
       {substringTitle}
-    </button>
-    </div>
-      
+    </S.Button>
   )
 }
