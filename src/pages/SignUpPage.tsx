@@ -6,6 +6,7 @@ import { postSignUp } from '../service/Api'
 
 export default function SignUpPage() {
   const [userInput, setUserInput] = useState({ email: '', password: '' })
+  const [valid, setValid] = useState<boolean>(true);
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -33,15 +34,22 @@ export default function SignUpPage() {
     const { name, value } = e.target
     setUserInput({ ...userInput, [name]: value })
   }
-
+  const buttonDisable = !valid
   const onNavigate = (pathName: string) => {
     navigate(pathName)
   }
+  
+  useEffect(() => {
+    const atSignCheck: boolean = userInput.email.includes('@');
+    const passwordLength: boolean = userInput.password.length >= 8;
+    setValid(atSignCheck && passwordLength);
+  }, [userInput]);
+
 
   return (
     <div>
       <div style={{ fontWeight: 'bold', fontSize: '20px' }}>회원가입</div>
-      <Input formHandle={formHandle} onChangeHandle={onChangeHandle} pathName={location.pathname} value={userInput}/>
+      <Input formHandle={formHandle} onChangeHandle={onChangeHandle} pathName={location.pathname} value={userInput} isDisabled={buttonDisable}/>
       <Link pathName="/signin" onNavigate={onNavigate} />
     </div>
   )
