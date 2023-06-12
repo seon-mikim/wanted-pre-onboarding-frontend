@@ -1,7 +1,11 @@
 import { styled } from 'styled-components'
 
 export const FormWrap = styled.div`
-  width: 100%;
+  width:100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 `
 export const Form = styled.form`
   display: flex;
@@ -13,7 +17,8 @@ export const TodoForm = styled.form`
   display: flex;
   align-items: center;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
+ 
 `
 
 export const Label = styled.label`
@@ -26,10 +31,12 @@ export const Label = styled.label`
 `
 
 export const Input = styled.input`
+ text-align: center;
   padding: 10px 20px;
   width: 250px;
 `
 export const TodoInput = styled.input`
+text-align: center;
   padding: 10px 20px;
   width: 400px;
   margin-right: 20px;
