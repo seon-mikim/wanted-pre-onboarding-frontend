@@ -22,7 +22,7 @@ export default function MainPage() {
 
   return (
     <div>
-      <div>
+      <div style={{marginBottom: '10px'}}>
         <span>오늘 할일을 적고 싶을 땐...</span>
       </div>
       <div>
