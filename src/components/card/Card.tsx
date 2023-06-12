@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { TodoCardProps } from '../../interface/todo'
 import Input from '../common/input/Input'
+import * as S from './style'
 
 export default function Card({ todo, onDelete, onUpdate }: TodoCardProps) {
   const [isChecked, setIsChecked] = useState(todo.isCompleted)
@@ -11,7 +12,6 @@ export default function Card({ todo, onDelete, onUpdate }: TodoCardProps) {
   const onShowEditInput = () => {
     setOnEdit(!onEdit)
   }
-  const pathName = '제출'
 
   const OnCancel = () => {
     setOnEdit(!onEdit)
@@ -33,35 +33,45 @@ export default function Card({ todo, onDelete, onUpdate }: TodoCardProps) {
     })
   }
   return (
-  <ul style={{listStyle: 'none', paddingLeft:'0'}}>
-
-    {onEdit ? (
-      <li key={todo.id} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', margin:'20px auto', alignItems:'center', flex: 1}}>
-        <input onChange={onChangeHandle} type="checkbox" name="isCompleted" checked={isChecked} />
-        <Input
-          formHandle={formHandle}
-          onChangeHandle={onChangeHandle}
-          pathName={pathName}
-          todoInput={isUpdateTodo.todo}
-          onEdit={onEdit}
-          OnCancel={OnCancel}
-        />
-      </li>
-    ) : (
-      <li key={todo.id} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', margin:'20px auto'}}>
-        <input onChange={onChangeHandle} type="checkbox" name="isCompleted" checked={isChecked} />
-        <span style={{ display: 'block', padding: '10px 20px' }}>{todo.todo}</span>
-        <div>
-          <button style={{ border:'none', padding: '12px 22px', marginRight: '10px'}}data-testid="modify-button" onClick={onShowEditInput}>
-            수정
-          </button>
-          <button style={{ border:'none', padding: '12px 22px'}} onClick={() => onDelete(todo.id)} data-testid="delete-button">
-            삭제
-          </button>
-        </div>
-      </li>
-    )}
-  </ul>
-
+    <S.CardItem key={todo.id}>
+      {onEdit ? (
+        <S.CardItemWrap>
+          <S.Label>
+            <input onChange={onChangeHandle} type="checkbox" name="isCompleted" checked={isChecked} />
+          </S.Label>
+          <Input
+            formHandle={formHandle}
+            onChangeHandle={onChangeHandle}
+            pathName="submit"
+            todoInput={isUpdateTodo.todo}
+            onEdit={onEdit}
+            OnCancel={OnCancel}
+          />
+        </S.CardItemWrap>
+      ) : (
+        <S.CardItemWrap>
+          <S.Label>
+            <input onChange={onChangeHandle} type="checkbox" name="isCompleted" checked={isChecked} />
+            <span style={{paddingLeft:'300px', textAlign:'center'}}>{todo.todo}</span>
+          </S.Label>
+          <div>
+            <button
+              style={{ border: 'none', padding: '12px 22px', color:'#ffff', backgroundColor:'#000' }}
+              data-testid="modify-button"
+              onClick={onShowEditInput}
+            >
+              수정
+            </button>
+            <button
+              style={{ border: 'none', padding: '12px 22px', marginLeft: '10px',color:'#ffff', backgroundColor:'#000'}}
+              onClick={() => onDelete(todo.id)}
+              data-testid="delete-button"
+            >
+              삭제
+            </button>
+          </div>
+        </S.CardItemWrap>
+      )}
+    </S.CardItem>
   )
 }
