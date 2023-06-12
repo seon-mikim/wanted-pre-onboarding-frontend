@@ -6,6 +6,8 @@ import { postSignIn } from '../service/Api'
 
 export default function SignInPage() {
   const [userInput, setUserInput] = useState({ email: '', password: '' })
+  const [valid, setValid] = useState<boolean>(true);
+
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -33,16 +35,24 @@ export default function SignInPage() {
   const onChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setUserInput({ ...userInput, [name]: value })
+    
   }
-
+  const buttonDisable = !valid
   const onNavigate = (pathName: string) => {
     navigate(pathName)
   }
 
+  useEffect(() => {
+    const atSignCheck: boolean = userInput.email.includes('@');
+    const passwordLength: boolean = userInput.password.length >= 8;
+    setValid(atSignCheck && passwordLength);
+  }, [userInput]);
+  
+
   return (
     <div>
       <div style={{ fontWeight: 'bold', fontSize: '20px' }}>로그인</div>
-      <Input formHandle={formHandle} onChangeHandle={onChangeHandle} pathName={location.pathname} />
+      <Input formHandle={formHandle} onChangeHandle={onChangeHandle} pathName={location.pathname} isDisabled={buttonDisable} value={userInput} />
       <Link pathName="/signup" onNavigate={onNavigate} />
     </div>
   )
