@@ -12,4 +12,5 @@ export const Button = styled.button<ButtonProps>`
   font-size: 20px;
   margin-left: 10px;
   color: #ffff;
+  cursor: pointer;
 `
