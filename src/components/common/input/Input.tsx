@@ -8,15 +8,26 @@ interface FormProps {
   value?: User
   todoInput?: string
   onEdit?: boolean
+  isDisabled?: boolean
   formHandle?: (e: React.FormEvent<HTMLFormElement>) => void
   onChangeHandle?: (e: React.ChangeEvent<HTMLInputElement>) => void
   OnCancel?: () => void
 }
 
-export default function Input({ formHandle, onChangeHandle, pathName, value, todoInput, onEdit, OnCancel }: FormProps) {
+export default function Input({
+  formHandle,
+  onChangeHandle,
+  pathName,
+  value,
+  todoInput,
+  onEdit,
+  isDisabled,
+  OnCancel,
+}: FormProps) {
   const location = useLocation()
 
   const renderPathName = location.pathname === '/signup' || location.pathname === '/signin'
+  console.log(value)
   return (
     <S.FormWrap>
       {renderPathName ? (
@@ -32,6 +43,11 @@ export default function Input({ formHandle, onChangeHandle, pathName, value, tod
               id="email"
             />
           </div>
+          <div>
+            {value?.email && !value?.email.includes('@') && (
+              <p style={{ color: 'red', fontSize: '12px' }}>@ 기호가 포함되어야합니다.</p>
+            )}
+          </div>
           <div style={{ marginBottom: '20px' }}>
             <S.Label htmlFor="password">password</S.Label>
             <S.Input
@@ -43,19 +59,24 @@ export default function Input({ formHandle, onChangeHandle, pathName, value, tod
               id="password"
             />
           </div>
-          <Button title={pathName} />
+          {value?.password && value?.password.length < 8 && (
+            <p style={{ color: 'red', fontSize: '12px' }}>비밀번호는 8글자 이상이여야합니다.</p>
+          )}
+          <Button title={pathName} isDisabled={isDisabled} />
         </S.Form>
       ) : (
         <S.TodoForm onSubmit={formHandle}>
           <S.TodoInput
             onChange={onChangeHandle}
             value={todoInput}
-            data-testid="new-todo-input"
+            data-testid={pathName === 'submit' ? 'modify-input' : 'new-todo-input'}
             type="text"
             name="todo"
           />
-          <Button title={pathName} />
-          {onEdit && <Button title="취소" OnCancel={OnCancel} />}
+          <div style={{ display: 'flex' }}>
+            <Button title={pathName} />
+            {onEdit && <Button title="cancel" />}
+          </div>
         </S.TodoForm>
       )}
     </S.FormWrap>
