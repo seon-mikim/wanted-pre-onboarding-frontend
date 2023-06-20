@@ -11,4 +11,4 @@
    ```
    -배포 사이트 
      2. 배포 링크 
-  [https://wanted-pre-onboarding-frontend-ten-nu.vercel.app/](https://wanted-pre-onboarding-frontend-ten-nu.vercel.app)
+  [https://wanted-pre-onboarding-frontend-ten-nu.vercel.app/](https://wanted-pre-onboarding-frontend-mvt7riijz-xiuxiubok.vercel.app)
